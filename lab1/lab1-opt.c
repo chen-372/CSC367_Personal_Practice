@@ -16,6 +16,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "time_util.h"
+
 
 #define NVECS 10000
 #define NDIMS 10000
@@ -37,7 +39,7 @@ void generate(double m[NDIMS][NVECS])
 }
 
 
-//TODO: optimize
+//fixed spacial locality issue, go over the matrix row by row now
 double avg_vec_len(const double m[NDIMS][NVECS])
 {
 	double len_sum = 0.0;
@@ -45,7 +47,7 @@ double avg_vec_len(const double m[NDIMS][NVECS])
 	for (int i = 0; i < NVECS; i++) {
 		double s = 0.0;
 		for (int j = 0; j < NDIMS; j++) {
-			s += m[j][i] * m[j][i];
+			s += m[i][j] * m[i][j];
 		}
 
 		double len = sqrt(s);
@@ -62,9 +64,14 @@ int main()
 {
 	generate(matrix);
 
-	//TODO: measure time (in milliseconds) taken to execute avg_vec_len()
-	double time_msec = 0.0;
+	struct timespec start, end;
+
+	clock_gettime(CLOCK_MONOTONIC, &start);
 	double avg_len = avg_vec_len(matrix);
+	clock_gettime(CLOCK_MONOTONIC, &end);
+	
+	struct timespec elapsed = difftimespec(end, start);
+	double time_msec = timespec_to_msec(elapsed);
 
 	printf("%f\n", avg_len);
 	printf("%f\n", time_msec);

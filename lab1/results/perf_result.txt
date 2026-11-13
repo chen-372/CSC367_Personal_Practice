@@ -1,0 +1,9 @@
+Samples: 3K of event 'cpu-clock:u', Event count (approx.): 908750000
+Overhead  Command  Shared Object  Symbol
+  47.95%  lab1     lab1           [.] avg_vec_len
+  46.99%  lab1     libc.so.6      [.] __random
+   2.64%  lab1     libc.so.6      [.] __random_r
+   1.87%  lab1     lab1           [.] generate
+   0.55%  lab1     lab1           [.] random@plt
+
+
