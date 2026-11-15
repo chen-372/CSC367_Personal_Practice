@@ -13,8 +13,8 @@
 
 CC = gcc
 # CFLAGS += -std=gnu11 -Wall -Werror -g3 -O3 -DNDEBUG -pg, uses gnu17
-CFLAGS += -Wall -Werror -g3 -O3 -DNDEBUG -pg
-LDFLAGS += -lm -pg
+CFLAGS += -Wall -Werror -g3 -O3 -DNDEBUG #-pg
+LDFLAGS += -lm #-pg
 
 all: lab1 lab1-opt
 
